@@ -2,16 +2,6 @@ module "rerun" {
   source = "git::https://github.com/GlueOps/terraform-toggle-rerun-for-tfc-operator.git?ref=v0.1.0"
 }
 
-variable "VAULT_ADDR" {
-  type        = string
-  description = "The url of the vault server Example: https://vault.us-production.glueops.rocks"
-}
-  
-variable "VAULT_TOKEN" {
-  type        = string
-  description = "The url of the vault server Example: https://vault.us-production.glueops.rocks"
-}
-
 terraform {
   required_providers {
     vault = {
@@ -21,10 +11,7 @@ terraform {
   }
 }
 
-provider "vault" {
-  token   = var.VAULT_TOKEN
-  address = var.VAULT_ADDR
-}
+provider "vault" {}
 
 
 resource "vault_policy" "super_admin" {
