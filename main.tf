@@ -1,6 +1,8 @@
 module "rerun" {
   source = "git::https://github.com/GlueOps/terraform-toggle-rerun-for-tfc-operator.git?ref=v0.1.0"
 }
+  
+variable "GLUEOPS_ENV" {}  
 
 terraform {
   required_providers {
@@ -10,8 +12,6 @@ terraform {
     }
   }
 }
-
-provider "vault" {}
 
 
 resource "vault_policy" "super_admin" {
@@ -157,7 +157,7 @@ resource "vault_kubernetes_auth_backend_config" "config" {
 }
 
 locals {
-  envs = ["development", "staging", "production"]
+  envs = ["${var.GLUEOPS_ENV}"]
 }
 
 resource "vault_kubernetes_auth_backend_role" "env_roles" {
